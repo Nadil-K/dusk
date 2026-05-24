@@ -125,6 +125,11 @@ async def callers(endpoint_key: str, store: HitStore = Depends(get_store)):
 
 
 # Serve compiled Svelte app — must be mounted last
-_dist = Path(__file__).parent.parent / "frontend" / "dist"
+_dist = Path(__file__).resolve().parent.parent / "frontend" / "dist"
 if _dist.exists():
     app.mount("/", StaticFiles(directory=str(_dist), html=True), name="static")
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=9001)

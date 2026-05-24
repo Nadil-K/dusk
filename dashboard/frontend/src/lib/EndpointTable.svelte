@@ -11,7 +11,7 @@
 
   function statusLabel(ep: EndpointRow): string {
     if (ep.past_sunset) return 'Past sunset'
-    if (!ep.sunset_at) return 'Soft'
+    if (!ep.sunset_at) return 'Deprecated'
     return `${ep.days_left}d left`
   }
 </script>
