@@ -1,0 +1,29 @@
+{
+  "name": "dusk-js",
+  "version": "0.1.0",
+  "description": "RFC 8594-compliant API deprecation middleware — JavaScript/TypeScript",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "keywords": ["api", "deprecation", "sunset", "middleware", "rfc8594", "express"],
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test dist/tests"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "peerDependencies": {
+    "express": ">=4.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nadilkarunarathna/dusk"
+  }
+}

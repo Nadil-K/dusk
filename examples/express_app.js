@@ -3,7 +3,7 @@
  * Run: node examples/express_app.js
  */
 const express = require('express')
-const { createDusk } = require('../adapters/express')
+const { createDusk } = require('dusk-js')
 
 const app = express()
 const dusk = createDusk('./dusk.yaml')

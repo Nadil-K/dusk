@@ -1,6 +1,6 @@
 """Example: FastAPI app with dusk deprecation middleware."""
 from fastapi import FastAPI
-from adapters.fastapi import DuskMiddleware
+from dusk.adapters.fastapi import DuskMiddleware
 
 app = FastAPI()
 app.add_middleware(DuskMiddleware, config_path="dusk.yaml")
@@ -18,7 +18,7 @@ async def list_users_v2():
 
 @app.get("/api/v1/orders/{order_id}")
 async def get_order_v1(order_id: str):
-    return {"order_id": order_id, "note": "deprecated — use /api/v2/orders/{id}"}
+    return {"order_id": order_id}
 
 
 @app.get("/api/v2/orders/{order_id}")
