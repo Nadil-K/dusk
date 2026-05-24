@@ -24,7 +24,7 @@
 
 <div class="caller-list">
   {#if endpointKey}
-    <p class="label">Filtered to <code>{endpointKey}</code> — <button class="clear" on:click={() => selectedEndpoint.set(null)}>clear</button></p>
+    <p class="label">Filtered by <code>{endpointKey}</code> <button class="clear" on:click={() => selectedEndpoint.set(null)}>Clear</button></p>
   {:else}
     <p class="label">All endpoints</p>
   {/if}
@@ -47,10 +47,10 @@
 
 <style>
   .caller-list { padding: 0.5rem 0; }
-  .label { font-size: 0.8rem; color: #a6adc8; margin: 0 0 0.75rem; }
+  .label { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: #a6adc8; margin: 0 0 0.75rem; }
   code { color: #89b4fa; }
-  .clear { background: none; border: none; color: #585b70; font-size: 0.8rem; cursor: pointer; padding: 0; text-decoration: underline; }
-  .clear:hover { color: #a6adc8; }
+  .clear { background: #313244; border: none; color: #a6adc8; font-size: 0.7rem; cursor: pointer; padding: 0.15rem 0.45rem; border-radius: 4px; line-height: 1; transition: background 0.15s, color 0.15s; }
+  .clear:hover { background: #45475a; color: #cdd6f4; }
   ol { list-style: decimal inside; padding: 0; margin: 0; }
   li { display: flex; justify-content: space-between; padding: 0.4rem 0.75rem; border-radius: 4px; font-size: 0.85rem; }
   li:nth-child(odd) { background: #1e1e2e; }
