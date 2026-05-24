@@ -58,8 +58,8 @@ def config_file(tmp_path):
 @pytest.fixture
 def mw_client(config_file):
     _, mw = _build_app(config_file)
-    # Pass the middleware itself as the ASGI app — it IS the full stack
-    return mw, TestClient(mw, raise_server_exceptions=True)
+    with TestClient(mw, raise_server_exceptions=True) as client:
+        yield mw, client
 
 
 def test_deprecated_endpoint_gets_headers(mw_client):

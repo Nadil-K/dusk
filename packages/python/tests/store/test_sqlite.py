@@ -14,8 +14,10 @@ def make_hit(path="/api/v1/users", caller="key-abc", days_left=100, enforced=Fal
 
 
 @pytest.fixture
-def store(tmp_path):
-    return SQLiteHitStore(path=str(tmp_path / "test.db"))
+async def store(tmp_path):
+    s = SQLiteHitStore(path=str(tmp_path / "test.db"))
+    yield s
+    await s.close()
 
 
 @pytest.mark.asyncio
