@@ -194,7 +194,8 @@ HTTP/1.1 410 Gone
 
 ## Future improvements
 
-- Additional framework adapters (Django, Hono, Gin, Fiber, and others are on the roadmap — contributions welcome)
+- Additional framework adapters (Flask and Django for Python, Fastify and NestJS for JavaScript, Gin and Echo for Go are on the roadmap — contributions welcome)
+- Community-contributed adapters for other languages and frameworks are welcome — PHP (Laravel, Symfony), Ruby (Rails, Sinatra), and Java (Spring Boot) are good starting points
 - Dashboard UI improvements
 - Webhook / alerting when a past-sunset endpoint receives traffic
 
