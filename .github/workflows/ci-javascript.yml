@@ -1,4 +1,4 @@
-name: CI | JavaScript
+name: CI / JavaScript
 
 on:
   push:
@@ -10,6 +10,7 @@ on:
 
 jobs:
   test:
+    name: "Vitest"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

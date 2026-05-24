@@ -1,4 +1,4 @@
-name: CI | Python
+name: CI / Python
 
 on:
   push:
@@ -10,6 +10,7 @@ on:
 
 jobs:
   test:
+    name: "Pytest"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

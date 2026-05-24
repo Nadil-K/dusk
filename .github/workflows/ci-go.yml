@@ -1,4 +1,4 @@
-name: CI | Go
+name: CI / Go
 
 on:
   push:
@@ -10,6 +10,7 @@ on:
 
 jobs:
   test:
+    name: "Go Test"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
