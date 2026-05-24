@@ -9,6 +9,7 @@ Track who is still calling your deprecated endpoints, automatically inject `Depr
 [![Go](https://github.com/Nadil-K/dusk/actions/workflows/ci-go.yml/badge.svg)](https://github.com/Nadil-K/dusk/actions/workflows/ci-go.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+![dusk dashboard](dusk.png)
 ---
 
 ## How it works
