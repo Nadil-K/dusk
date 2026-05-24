@@ -4,9 +4,9 @@
 
 Track who is still calling your deprecated endpoints, automatically inject [RFC 8594](https://www.rfc-editor.org/rfc/rfc8594) `Deprecation`, `Sunset`, and `Link` headers, and know with confidence when it is safe to remove an endpoint.
 
-[![CI | Python](https://github.com/Nadil-K/dusk/actions/workflows/ci-python.yml/badge.svg)](https://github.com/Nadil-K/dusk/actions/workflows/ci-python.yml)
-[![CI | JavaScript](https://github.com/Nadil-K/dusk/actions/workflows/ci-javascript.yml/badge.svg)](https://github.com/Nadil-K/dusk/actions/workflows/ci-javascript.yml)
-[![CI | Go](https://github.com/Nadil-K/dusk/actions/workflows/ci-go.yml/badge.svg)](https://github.com/Nadil-K/dusk/actions/workflows/ci-go.yml)
+[![Python](https://github.com/Nadil-K/dusk/actions/workflows/ci-python.yml/badge.svg)](https://github.com/Nadil-K/dusk/actions/workflows/ci-python.yml)
+[![JavaScript](https://github.com/Nadil-K/dusk/actions/workflows/ci-javascript.yml/badge.svg)](https://github.com/Nadil-K/dusk/actions/workflows/ci-javascript.yml)
+[![Go](https://github.com/Nadil-K/dusk/actions/workflows/ci-go.yml/badge.svg)](https://github.com/Nadil-K/dusk/actions/workflows/ci-go.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
