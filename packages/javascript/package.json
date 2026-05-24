@@ -1,7 +1,7 @@
 {
   "name": "dusk-js",
   "version": "0.1.0",
-  "description": "RFC 8594-compliant API deprecation middleware — JavaScript/TypeScript",
+  "description": "Deprecated API usage monitoring middleware — RFC 8594 headers, hit tracking, and sunset enforcement",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "license": "MIT",
