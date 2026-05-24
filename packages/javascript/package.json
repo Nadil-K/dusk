@@ -1,11 +1,11 @@
 {
   "name": "dusk-js",
   "version": "0.1.0",
-  "description": "Deprecated API usage monitoring middleware — RFC 8594 headers, hit tracking, and sunset enforcement",
+  "description": "Deprecated API usage monitoring middleware — RFC 9745 Deprecation + RFC 8594 Sunset headers, hit tracking, and sunset enforcement",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "license": "MIT",
-  "keywords": ["api", "deprecation", "sunset", "middleware", "rfc8594", "express"],
+  "keywords": ["api", "deprecation", "sunset", "middleware", "rfc8594", "rfc9745", "express"],
   "scripts": {
     "build": "tsc",
     "test": "vitest run",

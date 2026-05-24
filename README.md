@@ -2,7 +2,7 @@
 
 **Deprecated API usage monitoring middleware** for Python, JavaScript, and Go.
 
-Track who is still calling your deprecated endpoints, automatically inject [RFC 8594](https://www.rfc-editor.org/rfc/rfc8594) `Deprecation`, `Sunset`, and `Link` headers, and know with confidence when it is safe to remove an endpoint.
+Track who is still calling your deprecated endpoints, automatically inject `Deprecation` ([RFC 9745](https://www.rfc-editor.org/rfc/rfc9745)), `Sunset` ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)), and `Link` headers, and know with confidence when it is safe to remove an endpoint.
 
 [![Python](https://github.com/Nadil-K/dusk/actions/workflows/ci-python.yml/badge.svg)](https://github.com/Nadil-K/dusk/actions/workflows/ci-python.yml)
 [![JavaScript](https://github.com/Nadil-K/dusk/actions/workflows/ci-javascript.yml/badge.svg)](https://github.com/Nadil-K/dusk/actions/workflows/ci-javascript.yml)
@@ -15,7 +15,7 @@ Track who is still calling your deprecated endpoints, automatically inject [RFC 
 
 1. You declare deprecated endpoints in a `dusk.yaml` config file.
 2. dusk middleware intercepts every matching request and logs the hit — who called it, when, and from where.
-3. RFC 8594 headers (`Deprecation`, `Sunset`, `Link`) are injected into the response automatically.
+3. `Deprecation` (RFC 9745), `Sunset` (RFC 8594), and `Link` headers are injected into the response automatically.
 4. Once the `sunset_at` date passes, dusk returns `410 Gone` so clients know the endpoint is gone.
 5. Use the CLI or dashboard to see which callers are still hitting deprecated endpoints before you remove them.
 
@@ -179,10 +179,16 @@ For every request matched to a deprecated endpoint, dusk injects:
 
 ```
 Deprecation: @1735689600
-Sunset: @1767225600
+Sunset: Thu, 01 Jan 2026 00:00:00 GMT
 Link: </api/v2/users>; rel="successor-version",
       <https://docs.example.com/migration/users-v1-v2>; rel="deprecation"
 ```
+
+| Header | RFC | Format | Description |
+|--------|-----|--------|-------------|
+| `Deprecation` | [RFC 9745](https://www.rfc-editor.org/rfc/rfc9745) | `@<unix-timestamp>` | Unix timestamp of when the endpoint was deprecated. |
+| `Sunset` | [RFC 8594](https://www.rfc-editor.org/rfc/rfc8594) | HTTP-date (`Day, DD Mon YYYY HH:MM:SS GMT`) | Date after which the endpoint will be removed. |
+| `Link` | RFC 8594 | URI + rel type | Points to the successor endpoint (`successor-version`) and/or migration docs (`deprecation`). |
 
 After the sunset date, the response is:
 

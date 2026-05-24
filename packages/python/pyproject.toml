@@ -5,11 +5,11 @@ build-backend = "hatchling.build"
 [project]
 name = "dusk-deprecation"
 version = "0.1.0"
-description = "Deprecated API usage monitoring middleware — RFC 8594 headers, hit tracking, and sunset enforcement"
+description = "Deprecated API usage monitoring middleware — RFC 9745 Deprecation + RFC 8594 Sunset headers, hit tracking, and sunset enforcement"
 readme = "../../README.md"
 license = { text = "MIT" }
 requires-python = ">=3.11"
-keywords = ["api", "deprecation", "sunset", "middleware", "rfc8594", "monitoring"]
+keywords = ["api", "deprecation", "sunset", "middleware", "rfc8594", "rfc9745", "monitoring"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
