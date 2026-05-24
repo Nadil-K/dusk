@@ -3,8 +3,6 @@ name: CI | JavaScript
 on:
   push:
     branches: [main]
-    paths:
-      - 'packages/javascript/**'
   pull_request:
     branches: [main]
     paths:
