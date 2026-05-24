@@ -6,13 +6,21 @@ export interface DeprecationHeaders {
   Link?: string
 }
 
+function toUnix(isoDate: string): number {
+  return Math.floor(new Date(isoDate + 'T00:00:00Z').getTime() / 1000)
+}
+
+function toHttpDate(isoDate: string): string {
+  return new Date(isoDate + 'T00:00:00Z').toUTCString()
+}
+
 export function buildHeaders(endpoint: EndpointConfig): DeprecationHeaders {
   const headers: DeprecationHeaders = {
-    Deprecation: `@"${endpoint.deprecated_at}"`,
+    Deprecation: `@${toUnix(endpoint.deprecated_at)}`,
   }
 
   if (endpoint.sunset_at) {
-    headers.Sunset = endpoint.sunset_at
+    headers.Sunset = toHttpDate(endpoint.sunset_at)
   }
 
   const links: string[] = []

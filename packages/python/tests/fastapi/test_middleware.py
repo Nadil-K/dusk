@@ -66,8 +66,8 @@ def test_deprecated_endpoint_gets_headers(mw_client):
     _, client = mw_client
     res = client.get("/api/v1/users")
     assert res.status_code == 200
-    assert "Deprecation" in res.headers
-    assert "Sunset" in res.headers
+    assert res.headers["Deprecation"] == "@1735689600"
+    assert res.headers["Sunset"] == "Thu, 01 Jan 2099 00:00:00 GMT"
     assert "successor-version" in res.headers.get("Link", "")
 
 

@@ -8,12 +8,22 @@ import (
 
 type DeprecationHeaders map[string]string
 
+func dateToUnix(isoDate string) int64 {
+	t, _ := time.Parse("2006-01-02", isoDate)
+	return t.UTC().Unix()
+}
+
+func dateToHTTPDate(isoDate string) string {
+	t, _ := time.Parse("2006-01-02", isoDate)
+	return t.UTC().Format("Mon, 02 Jan 2006 15:04:05") + " GMT"
+}
+
 func BuildHeaders(ep EndpointConfig) DeprecationHeaders {
 	h := DeprecationHeaders{
-		"Deprecation": fmt.Sprintf(`@"%s"`, ep.DeprecatedAt),
+		"Deprecation": fmt.Sprintf("@%d", dateToUnix(ep.DeprecatedAt)),
 	}
 	if ep.SunsetAt != nil {
-		h["Sunset"] = *ep.SunsetAt
+		h["Sunset"] = dateToHTTPDate(*ep.SunsetAt)
 	}
 	var links []string
 	if ep.Successor != nil {

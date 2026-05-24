@@ -1,15 +1,25 @@
-from datetime import date
+from datetime import date, datetime, timezone
 from dusk.core.models import EndpointConfig
+
+
+def _to_unix(iso_date: str) -> int:
+    d = date.fromisoformat(iso_date)
+    return int(datetime(d.year, d.month, d.day, tzinfo=timezone.utc).timestamp())
+
+
+def _to_http_date(iso_date: str) -> str:
+    d = date.fromisoformat(iso_date)
+    return datetime(d.year, d.month, d.day, tzinfo=timezone.utc).strftime("%a, %d %b %Y %H:%M:%S GMT")
 
 
 class HeaderBuilder:
     def build(self, endpoint: EndpointConfig) -> dict[str, str]:
         headers: dict[str, str] = {}
 
-        headers["Deprecation"] = f'@"{endpoint.deprecated_at}"'
+        headers["Deprecation"] = f"@{_to_unix(endpoint.deprecated_at)}"
 
         if endpoint.sunset_at:
-            headers["Sunset"] = endpoint.sunset_at
+            headers["Sunset"] = _to_http_date(endpoint.sunset_at)
 
         links: list[str] = []
         if endpoint.successor:

@@ -58,8 +58,8 @@ describe('createDusk (Express middleware)', () => {
   it('adds Deprecation and Sunset headers to deprecated endpoints', async () => {
     const res = await request(app).get('/api/v1/users')
     expect(res.status).toBe(200)
-    expect(res.headers['deprecation']).toContain('2025-01-01')
-    expect(res.headers['sunset']).toBe('2099-01-01')
+    expect(res.headers['deprecation']).toBe('@1735689600')
+    expect(res.headers['sunset']).toBe('Thu, 01 Jan 2099 00:00:00 GMT')
   })
 
   it('adds Link header with successor-version', async () => {

@@ -10,11 +10,11 @@ def make_ep(sunset_at=None, successor=None, migration_doc=None):
 
 def test_deprecation_header_always_present():
     headers = HeaderBuilder().build(make_ep())
-    assert "Deprecation" in headers and "2025-01-01" in headers["Deprecation"]
+    assert headers["Deprecation"] == "@1735689600"
 
 
 def test_sunset_header_when_set():
-    assert HeaderBuilder().build(make_ep(sunset_at="2026-01-01"))["Sunset"] == "2026-01-01"
+    assert HeaderBuilder().build(make_ep(sunset_at="2026-01-01"))["Sunset"] == "Thu, 01 Jan 2026 00:00:00 GMT"
 
 
 def test_no_sunset_header_when_none():

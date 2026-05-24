@@ -10,11 +10,8 @@ func strPtr(s string) *string { return &s }
 func TestBuildHeaders_Deprecation(t *testing.T) {
 	ep := EndpointConfig{Path: "/api/v1/users", Methods: []string{"GET"}, DeprecatedAt: "2025-01-01"}
 	h := BuildHeaders(ep)
-	if _, ok := h["Deprecation"]; !ok {
-		t.Fatal("expected Deprecation header")
-	}
-	if !strings.Contains(h["Deprecation"], "2025-01-01") {
-		t.Fatalf("unexpected Deprecation value: %s", h["Deprecation"])
+	if h["Deprecation"] != "@1735689600" {
+		t.Fatalf("expected Deprecation=@1735689600, got %q", h["Deprecation"])
 	}
 }
 
@@ -26,8 +23,8 @@ func TestBuildHeaders_Sunset(t *testing.T) {
 		SunsetAt:     strPtr("2026-06-01"),
 	}
 	h := BuildHeaders(ep)
-	if h["Sunset"] != "2026-06-01" {
-		t.Fatalf("expected Sunset=2026-06-01, got %q", h["Sunset"])
+	if h["Sunset"] != "Mon, 01 Jun 2026 00:00:00 GMT" {
+		t.Fatalf("expected Sunset=Mon, 01 Jun 2026 00:00:00 GMT, got %q", h["Sunset"])
 	}
 }
 

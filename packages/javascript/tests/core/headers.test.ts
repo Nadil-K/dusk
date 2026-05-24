@@ -14,12 +14,11 @@ function ep(overrides: Partial<EndpointConfig> = {}): EndpointConfig {
 
 describe('buildHeaders', () => {
   it('always includes Deprecation header', () => {
-    const h = buildHeaders(ep())
-    expect(h.Deprecation).toContain('2025-01-01')
+    expect(buildHeaders(ep()).Deprecation).toBe('@1735689600')
   })
 
   it('includes Sunset header when sunset_at is set', () => {
-    expect(buildHeaders(ep({ sunset_at: '2026-01-01' })).Sunset).toBe('2026-01-01')
+    expect(buildHeaders(ep({ sunset_at: '2026-01-01' })).Sunset).toBe('Thu, 01 Jan 2026 00:00:00 GMT')
   })
 
   it('omits Sunset header when sunset_at is null', () => {

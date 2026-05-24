@@ -87,11 +87,11 @@ func TestMiddleware_Deprecated_HeadersSet(t *testing.T) {
 	if rr.Code != http.StatusOK {
 		t.Fatalf("expected 200, got %d", rr.Code)
 	}
-	if rr.Header().Get("Deprecation") == "" {
-		t.Fatal("expected Deprecation header")
+	if got := rr.Header().Get("Deprecation"); got != "@1735689600" {
+		t.Fatalf("expected Deprecation=@1735689600, got %q", got)
 	}
-	if rr.Header().Get("Sunset") == "" {
-		t.Fatal("expected Sunset header")
+	if got := rr.Header().Get("Sunset"); got != "Thu, 01 Jan 2099 00:00:00 GMT" {
+		t.Fatalf("expected Sunset=Thu, 01 Jan 2099 00:00:00 GMT, got %q", got)
 	}
 }
 
