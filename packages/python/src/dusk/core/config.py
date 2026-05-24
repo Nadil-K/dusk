@@ -4,13 +4,18 @@ from dusk.core.models import DeprecationConfig, StoreConfig, LogConfig, Endpoint
 
 
 def load_config(path: str = "dusk.yaml") -> DeprecationConfig:
+    config_dir = Path(path).resolve().parent
     raw = yaml.safe_load(Path(path).read_text())
     dusk = raw["dusk"]
 
     store_raw = dusk.get("store", {})
+    sqlite_path = store_raw.get("path", ".dusk/hits.db")
+    backend = store_raw.get("backend", "sqlite")
+    if backend == "sqlite" and not Path(sqlite_path).is_absolute():
+        sqlite_path = str(config_dir / sqlite_path)
     store = StoreConfig(
-        backend=store_raw.get("backend", "sqlite"),
-        path=store_raw.get("path", ".dusk/hits.db"),
+        backend=backend,
+        path=sqlite_path,
         url=store_raw.get("url"),
         key_prefix=store_raw.get("key_prefix", "dusk"),
         ttl_days=store_raw.get("ttl_days", 90),

@@ -15,6 +15,7 @@ venv/
 # Node
 node_modules/
 dashboard/node_modules/
+examples/express/node_modules/
 
 # Vite build artifacts (dist/ is committed for runtime — only ignore top-level dist)
 /dist/

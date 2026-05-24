@@ -1,9 +1,11 @@
-"""Example: FastAPI app with dusk deprecation middleware."""
+"""Example: FastAPI app with dusk deprecation middleware.
+Run: cd examples/fastapi && uvicorn fastapi_app:app --reload
+"""
 from fastapi import FastAPI
 from dusk.adapters.fastapi import DuskMiddleware
 
 app = FastAPI()
-app.add_middleware(DuskMiddleware, config_path="dusk.yaml")
+app.add_middleware(DuskMiddleware, config_path="../../dusk.yaml")
 
 
 @app.get("/api/v1/users")

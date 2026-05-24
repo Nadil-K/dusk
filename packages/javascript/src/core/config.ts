@@ -1,10 +1,12 @@
 import fs from 'fs'
+import path from 'path'
 import yaml from 'js-yaml'
 import { DuskConfig, EndpointConfig } from './models'
 
 export function loadConfig(configPath = 'dusk.yaml'): DuskConfig {
   const raw = yaml.load(fs.readFileSync(configPath, 'utf8')) as { dusk: Record<string, unknown> }
   const dusk = raw.dusk
+  const configDir = path.dirname(path.resolve(configPath))
 
   const storeRaw = (dusk.store as Record<string, unknown>) ?? {}
   const logRaw = (dusk.log as Record<string, unknown>) ?? {}
@@ -20,11 +22,17 @@ export function loadConfig(configPath = 'dusk.yaml'): DuskConfig {
     note: ep.note as string | undefined,
   }))
 
+  const backend = (storeRaw.backend as 'sqlite' | 'redis') ?? 'sqlite'
+  let sqlitePath = (storeRaw.path as string) ?? '.dusk/hits.db'
+  if (backend === 'sqlite' && !path.isAbsolute(sqlitePath)) {
+    sqlitePath = path.join(configDir, sqlitePath)
+  }
+
   return {
     version: (dusk.version as number) ?? 1,
     store: {
-      backend: (storeRaw.backend as 'sqlite' | 'redis') ?? 'sqlite',
-      path: (storeRaw.path as string) ?? '.dusk/hits.db',
+      backend,
+      path: sqlitePath,
       url: storeRaw.url as string | undefined,
       key_prefix: (storeRaw.key_prefix as string) ?? 'dusk',
       ttl_days: (storeRaw.ttl_days as number) ?? 90,
