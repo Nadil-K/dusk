@@ -1,0 +1,29 @@
+name: CI | Python
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/python/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'packages/python/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+        working-directory: packages/python
+
+      - name: Run tests
+        run: pytest
+        working-directory: packages/python

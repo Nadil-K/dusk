@@ -1,0 +1,29 @@
+name: CI | JavaScript
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/javascript/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'packages/javascript/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: packages/javascript
+
+      - name: Run tests
+        run: npm test
+        working-directory: packages/javascript

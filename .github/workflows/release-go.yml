@@ -1,0 +1,27 @@
+name: Release | Go
+
+on:
+  push:
+    tags:
+      - 'go/v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: packages/go/go.mod
+
+      - name: Run tests
+        run: go test ./...
+        working-directory: packages/go
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
