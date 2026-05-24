@@ -1,0 +1,38 @@
+dusk:
+  version: 1
+
+  store:
+    backend: sqlite
+    path: .dusk/hits.db
+    # Redis (production — multi-instance):
+    # backend: redis
+    # url: redis://localhost:6379
+    # key_prefix: dusk
+    # ttl_days: 90
+
+  log:
+    identify_by:
+      - header: X-API-Key
+      - header: Authorization
+      - ip
+
+  endpoints:
+    - path: /api/v1/users
+      methods: [GET, POST]
+      deprecated_at: "2025-01-01"
+      sunset_at: "2026-01-01"
+      successor: /api/v2/users
+      migration_doc: https://docs.example.com/migration/users-v1-v2
+      note: "v1 lacks pagination and field filtering"
+
+    - path: /api/v1/orders/{id}
+      methods: [GET]
+      deprecated_at: "2025-03-01"
+      sunset_at: "2026-03-01"
+      successor: /api/v2/orders/{id}
+
+    - path: /api/v1/search
+      methods: [GET]
+      deprecated_at: "2025-06-01"
+      sunset_at: null
+      successor: /api/v2/search

@@ -1,0 +1,30 @@
+services:
+  your-api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DUSK_CONFIG=dusk.yaml
+    volumes:
+      - .dusk:/app/.dusk
+
+  dusk-dashboard:
+    build:
+      context: .
+      dockerfile: docker/dashboard.Dockerfile
+    ports:
+      - "9001:9001"
+    environment:
+      - DUSK_CONFIG=dusk.yaml
+      - DUSK_STORE_BACKEND=redis
+      - DUSK_STORE_URL=redis://redis:6379
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:

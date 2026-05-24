@@ -1,0 +1,28 @@
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+temp/
+.venv/
+venv/
+.env
+
+# dusk runtime data
+.dusk/
+
+# Node
+node_modules/
+dashboard/node_modules/
+
+# Vite build artifacts (dist/ is committed for runtime — only ignore top-level dist)
+/dist/
+
+# macOS
+.DS_Store
+
+# pytest
+.pytest_cache/
+htmlcov/
+.coverage
