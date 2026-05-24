@@ -26,3 +26,6 @@ dashboard/node_modules/
 .pytest_cache/
 htmlcov/
 .coverage
+
+# Go example binaries
+examples/chi/chi_app

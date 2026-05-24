@@ -1,7 +1,5 @@
 package core
 
-import "time"
-
 type EndpointConfig struct {
 	Path         string   `yaml:"path"`
 	Methods      []string `yaml:"methods"`
@@ -29,15 +27,4 @@ type DuskConfig struct {
 	Store     StoreConfig      `yaml:"store"`
 	Log       LogConfig        `yaml:"log"`
 	Endpoints []EndpointConfig `yaml:"endpoints"`
-}
-
-type HitEvent struct {
-	Ts              time.Time
-	Path            string
-	Method          string
-	CallerID        *string
-	UserAgent       *string
-	DaysUntilSunset *int
-	EndpointKey     string
-	Enforced        bool
 }
