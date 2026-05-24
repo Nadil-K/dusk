@@ -1,4 +1,4 @@
-import { EndpointConfig } from './models.js'
+import { EndpointConfig } from './models'
 
 export interface DeprecationHeaders {
   Deprecation: string
@@ -32,6 +32,5 @@ export function buildHeaders(endpoint: EndpointConfig): DeprecationHeaders {
 export function daysUntilSunset(endpoint: EndpointConfig): number | null {
   if (!endpoint.sunset_at) return null
   const sunset = new Date(endpoint.sunset_at).getTime()
-  const now = Date.now()
-  return Math.floor((sunset - now) / 86_400_000)
+  return Math.floor((sunset - Date.now()) / 86_400_000)
 }

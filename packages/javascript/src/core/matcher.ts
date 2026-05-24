@@ -1,4 +1,4 @@
-import { EndpointConfig } from './models.js'
+import { EndpointConfig } from './models'
 
 const PARAM_RE = /\{[^}]+\}/g
 

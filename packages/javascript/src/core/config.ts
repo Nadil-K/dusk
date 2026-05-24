@@ -1,6 +1,6 @@
 import fs from 'fs'
 import yaml from 'js-yaml'
-import { DuskConfig, EndpointConfig } from './models.js'
+import { DuskConfig, EndpointConfig } from './models'
 
 export function loadConfig(configPath = 'dusk.yaml'): DuskConfig {
   const raw = yaml.load(fs.readFileSync(configPath, 'utf8')) as { dusk: Record<string, unknown> }

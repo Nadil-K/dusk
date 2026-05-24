@@ -1,4 +1,4 @@
-import { EndpointConfig } from './models.js'
+import { EndpointConfig } from './models'
 
 export interface EnforcerResult {
   enforce: boolean
@@ -8,8 +8,7 @@ export interface EnforcerResult {
 export function checkSunset(endpoint: EndpointConfig): EnforcerResult {
   if (!endpoint.sunset_at) return { enforce: false, body: null }
 
-  const isPast = new Date() > new Date(endpoint.sunset_at)
-  if (!isPast) return { enforce: false, body: null }
+  if (new Date() <= new Date(endpoint.sunset_at)) return { enforce: false, body: null }
 
   const body: Record<string, string> = {
     error: 'Gone',
