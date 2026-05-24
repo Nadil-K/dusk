@@ -51,5 +51,11 @@ class HitStore(ABC):
     async def total_summary(self, since_days: int = 30) -> dict:
         ...
 
+    @abstractmethod
+    async def top_callers(
+        self, endpoint_key: str | None = None, since_days: int = 30, limit: int = 10
+    ) -> list[tuple[str, int]]:
+        ...
+
     async def close(self) -> None:
         pass

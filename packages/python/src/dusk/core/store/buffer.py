@@ -48,6 +48,11 @@ class AsyncWriteBuffer(HitStore):
     async def total_summary(self, since_days: int = 30) -> dict:
         return await self._backend.total_summary(since_days)
 
+    async def top_callers(
+        self, endpoint_key: str | None = None, since_days: int = 30, limit: int = 10
+    ) -> list[tuple[str, int]]:
+        return await self._backend.top_callers(endpoint_key, since_days, limit)
+
     async def close(self) -> None:
         if self._task:
             self._task.cancel()

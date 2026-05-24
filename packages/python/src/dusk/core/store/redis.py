@@ -142,5 +142,24 @@ class RedisHitStore(HitStore):
             "past_sunset_with_traffic": 0,
         }
 
+    async def top_callers(
+        self, endpoint_key: str | None = None, since_days: int = 30, limit: int = 10
+    ) -> list[tuple[str, int]]:
+        if endpoint_key is not None:
+            top_raw = await self._redis.zrevrange(
+                self._callers_key(endpoint_key), 0, limit - 1, withscores=True
+            )
+            return [(caller, int(score)) for caller, score in top_raw]
+
+        endpoints = await self._redis.smembers(self._endpoints_key())
+        if not endpoints:
+            return []
+        tmp_key = f"{self._prefix}:_tmp_top_callers"
+        all_caller_keys = [self._callers_key(ep) for ep in endpoints]
+        await self._redis.zunionstore(tmp_key, all_caller_keys)
+        top_raw = await self._redis.zrevrange(tmp_key, 0, limit - 1, withscores=True)
+        await self._redis.delete(tmp_key)
+        return [(caller, int(score)) for caller, score in top_raw]
+
     async def close(self) -> None:
         await self._redis.aclose()

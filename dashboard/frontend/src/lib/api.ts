@@ -57,5 +57,8 @@ export const fetchHits = ({
   return get(url)
 }
 
+export const fetchAllCallers = (since_days = 30): Promise<CallerData> =>
+  get(`/api/callers?since_days=${since_days}`)
+
 export const fetchCallers = (endpoint_key: string): Promise<CallerData> =>
   get(`/api/callers/${encodeURIComponent(endpoint_key)}`)

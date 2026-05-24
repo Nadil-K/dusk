@@ -115,13 +115,16 @@ async def hits(
     ]
 
 
-@app.get("/api/callers/{endpoint_key}")
-async def callers(endpoint_key: str, store: HitStore = Depends(get_store)):
-    summaries = await store.endpoint_summaries()
-    for s in summaries:
-        if s.endpoint_key == endpoint_key:
-            return {"endpoint_key": endpoint_key, "top_callers": s.top_callers}
-    return {"endpoint_key": endpoint_key, "top_callers": []}
+@app.get("/api/callers")
+async def all_callers(store: HitStore = Depends(get_store), since_days: int = 30):
+    top = await store.top_callers(endpoint_key=None, since_days=since_days)
+    return {"endpoint_key": None, "top_callers": top}
+
+
+@app.get("/api/callers/{endpoint_key:path}")
+async def callers(endpoint_key: str, store: HitStore = Depends(get_store), since_days: int = 30):
+    top = await store.top_callers(endpoint_key=endpoint_key, since_days=since_days)
+    return {"endpoint_key": endpoint_key, "top_callers": top}
 
 
 # Serve compiled Svelte app — must be mounted last

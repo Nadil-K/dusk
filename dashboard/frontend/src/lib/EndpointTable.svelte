@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { endpoints } from '../stores/data.js'
+  import { endpoints, selectedEndpoint } from '../stores/data.js'
   import type { EndpointRow } from './api.js'
 
   function statusClass(ep: EndpointRow): string {
@@ -14,6 +14,10 @@
     if (!ep.sunset_at) return 'Deprecated'
     return `${ep.days_left}d left`
   }
+
+  function toggleSelect(path: string) {
+    selectedEndpoint.update(cur => cur === path ? null : path)
+  }
 </script>
 
 <table>
@@ -25,7 +29,10 @@
   </thead>
   <tbody>
     {#each $endpoints as ep (ep.path)}
-      <tr class={ep.past_sunset && ep.total_hits > 0 ? 'row-urgent' : ''}>
+      <tr
+        class="{ep.past_sunset && ep.total_hits > 0 ? 'row-urgent' : ''} {$selectedEndpoint === ep.path ? 'row-selected' : ''}"
+        on:click={() => toggleSelect(ep.path)}
+      >
         <td><code>{ep.path}</code></td>
         <td class="methods">{ep.methods.join(', ')}</td>
         <td><span class="badge {statusClass(ep)}">{statusLabel(ep)}</span></td>
@@ -45,8 +52,14 @@
     text-transform: uppercase; letter-spacing: 0.05em;
   }
   td { padding: 0.75rem 1rem; border-bottom: 1px solid #1e1e2e; color: #cdd6f4; }
-  tr:hover td { background: #181825; }
+  tbody tr { cursor: pointer; }
+  tbody tr:hover td { background: #181825; }
   tr.row-urgent td { background: #2d1b22; }
+  tr.row-urgent:hover td { background: #3d2230; }
+  tr.row-selected td { background: #1a2640; }
+  tr.row-selected:hover td { background: #1f2f4d; }
+  tr.row-urgent.row-selected td { background: #3d1e2e; }
+  tr.row-urgent.row-selected:hover td { background: #4a2235; }
   code { font-family: 'Cascadia Code', 'Fira Code', monospace; color: #89b4fa; font-size: 0.85rem; }
   .methods { color: #a6adc8; font-size: 0.8rem; }
   .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }

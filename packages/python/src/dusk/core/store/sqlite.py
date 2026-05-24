@@ -171,6 +171,25 @@ class SQLiteHitStore(HitStore):
             "past_sunset_with_traffic": past_sunset,
         }
 
+    async def top_callers(
+        self, endpoint_key: str | None = None, since_days: int = 30, limit: int = 10
+    ) -> list[tuple[str, int]]:
+        await self._ensure_connected()
+        sql = """
+            SELECT caller_id, COUNT(*) AS cnt
+            FROM hits
+            WHERE ts >= datetime('now', ? || ' days')
+              AND caller_id IS NOT NULL
+        """
+        params: list = [f"-{since_days}"]
+        if endpoint_key is not None:
+            sql += " AND endpoint_key = ?"
+            params.append(endpoint_key)
+        sql += " GROUP BY caller_id ORDER BY cnt DESC LIMIT ?"
+        params.append(limit)
+        rows = await self._db.execute_fetchall(sql, params)
+        return [(r["caller_id"], r["cnt"]) for r in rows]
+
     async def close(self) -> None:
         if self._db:
             await self._db.close()
